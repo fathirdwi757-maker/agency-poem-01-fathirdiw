@@ -30,6 +30,7 @@ def main():
     try:
         with NamedTemporaryFile(dir=output_dir, prefix=".entry-", delete=False) as temporary:
             temporary.write(poem_bytes)
+            os.fchmod(temporary.fileno(), 0o644)
             temporary_path = Path(temporary.name)
         temporary_path.replace(entry_path)
     finally:
